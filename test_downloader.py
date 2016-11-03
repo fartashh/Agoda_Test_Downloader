@@ -30,3 +30,6 @@ class DownloadManagerTestCase(unittest.TestCase):
         url = "ftp://mirror.aarnet.edu.au/pub/squid/archive/squid-4.0.15.tar.gz"
         with self.assertRaises(urllib2.URLError):
             self.downloader.process(url)
+
+if __name__ == "__main__":
+    unittest.main()
