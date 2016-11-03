@@ -17,3 +17,11 @@ class DownloadManagerTestCase(unittest.TestCase):
         self.downloader.process(url)
         file_path = os.path.join(self.config['download_location'], file_name)
         self.assertEqual(os.path.getsize(file_path), size)
+
+    def test_ftp_protocol(self):
+        url = "ftp://ftp.is.co.za/pub/squid/squid-3.1.23.tar.gz"
+        file_name = url.split('/')[-1]
+        size = 3489539
+        self.downloader.process(url)
+        file_path = os.path.join(self.config['download_location'], file_name)
+        self.assertEqual(os.path.getsize(file_path) , size)
