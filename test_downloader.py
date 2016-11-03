@@ -2,7 +2,7 @@ import unittest
 from downloader import Downloader
 import os
 import json
-
+import urllib2
 
 class DownloadManagerTestCase(unittest.TestCase):
     def setUp(self):
@@ -25,3 +25,8 @@ class DownloadManagerTestCase(unittest.TestCase):
         self.downloader.process(url)
         file_path = os.path.join(self.config['download_location'], file_name)
         self.assertEqual(os.path.getsize(file_path) , size)
+
+    def test_url_err(self):
+        url = "ftp://mirror.aarnet.edu.au/pub/squid/archive/squid-4.0.15.tar.gz"
+        with self.assertRaises(urllib2.URLError):
+            self.downloader.process(url)
