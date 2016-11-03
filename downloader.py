@@ -38,6 +38,8 @@ class Downloader(object):
                     downloaded_amount += len(buffer)
                     file.write(buffer)
                     self.__update_progress(self.file_name, 100 * downloaded_amount / self.file_size)
+
+            self.__validate_downloaded_file()
             return self
         except urllib2.URLError as ex:
             self._logger.exception('connection refused; invalid URL')
@@ -46,6 +48,11 @@ class Downloader(object):
             self.__validate_downloaded_file()
             self._logger(ex)
             raise ex
+
+    def __validate_downloaded_file(self):
+        self._logger.info('\n\n validating downloaded file ...\n')
+        if os.path.getsize(self.file_path) != self.file_size:
+            os.remove(self.file_path)
 
     def __update_progress(self, file_name, progress):
         sys.stdout.write('\n%s\n' % file_name)
