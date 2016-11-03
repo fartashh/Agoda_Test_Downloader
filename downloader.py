@@ -1,4 +1,5 @@
 import logging
+
 logging.basicConfig()
 import urllib2
 import sys
@@ -36,6 +37,7 @@ class Downloader(object):
                         break
                     downloaded_amount += len(buffer)
                     file.write(buffer)
+                    self.__update_progress(self.file_name, 100 * downloaded_amount / self.file_size)
             return self
         except urllib2.URLError as ex:
             self._logger.exception('connection refused; invalid URL')
@@ -45,3 +47,7 @@ class Downloader(object):
             self._logger(ex)
             raise ex
 
+    def __update_progress(self, file_name, progress):
+        sys.stdout.write('\n%s\n' % file_name)
+        sys.stdout.write("[%-50s] %.3f%%" % ('#' * int(progress), progress))
+        sys.stdout.flush()
