@@ -26,13 +26,19 @@ git clone https://github.com/fartashh/Agoda_Test_Downloader
 ## Running the tests
 
 ```
-
+python test_downloader.py  
 ```
 
 ## Running the Downloader
 
+Download one file
+```
+python download_manager.py -u http://mirror.aarnet.edu.au/pub/squid/squid/squid-4.0.15.tar.gz 
+```
+Download more than one file
+```
+python download_manager.py -u http://mirror.aarnet.edu.au/pub/squid/squid/squid-4.0.15.tar.gz ftp://ftp.is.co.za/pub/squid/squid-3.1.23.tar.gz 
 ```
 
-```
 
 
