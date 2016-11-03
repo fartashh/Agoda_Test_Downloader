@@ -1,6 +1,7 @@
 from downloader import Downloader
 from threading import Thread
 from Queue import Queue
+import argparse
 
 
 class DownloadWorker(Thread):
@@ -35,3 +36,10 @@ class DownloadManager(object):
             self.queue.put(url)
 
         self.queue.join()
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-u','--urls', nargs='+', help='<Required> URLS', required=True, dest='urls')
+    args = parser.parse_args()
+    downloader_manager = DownloadManager(args.urls)
+    downloader_manager.process()
