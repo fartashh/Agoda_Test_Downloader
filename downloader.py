@@ -17,6 +17,7 @@ class Downloader(object):
     def __init__(self):
         with open('config.json') as config:
             self.config = json.load(config)
+        self.validate_destination_path()
 
     def process(self, url):
         self.url = url
@@ -58,3 +59,7 @@ class Downloader(object):
         sys.stdout.write('\n%s\n' % file_name)
         sys.stdout.write("[%-50s] %.3f%%" % ('#' * int(progress), progress))
         sys.stdout.flush()
+
+    def validate_destination_path(self):
+        if not os.path.exists(self.config['download_location']):
+            os.makedirs(self.config['download_location'])
